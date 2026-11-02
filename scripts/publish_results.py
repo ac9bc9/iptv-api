@@ -374,8 +374,8 @@ def prepare_release_assets(
             sources.append((_resolve_output_file(candidate, output_dir), asset_name))
     for relative_path, asset_name in LOG_ASSETS.items():
         candidate = output_dir / relative_path
-        if candidate.exists():
-            sources.append((_resolve_output_file(candidate, output_dir, allow_empty=True), asset_name))
+                if candidate.exists() and candidate.stat().st_size > 0:
+            sources.append((_resolve_output_file(candidate, output_dir), asset_name))
 
     seen_names = set()
     for source, asset_name in sources:
